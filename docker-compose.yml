@@ -4,6 +4,7 @@ services:
 
   nginx-proxy:
     image: "jwilder/nginx-proxy"
+    container_name: nginx-proxy
     ports:
       - "80:80"
       - "443:443"
@@ -17,6 +18,9 @@ services:
 
   nginx-proxy-letsencrypt:
     image: "jrcs/letsencrypt-nginx-proxy-companion"
+    container_name: nginx-proxy-letsencrypt
+    depends_on:
+      - nginx-proxy
     volumes:
       - "nginx-certs:/etc/nginx/certs"
       - "nginx-vhost:/etc/nginx/vhost.d"
